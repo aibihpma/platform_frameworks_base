@@ -7,9 +7,13 @@ LOCAL_SRC_FILES := $(call all-subdir-java-files)
 LOCAL_MODULE := ime
 include $(BUILD_JAVA_LIBRARY)
 
+ime_installed_module := $(LOCAL_INSTALLED_MODULE)
 
 include $(CLEAR_VARS)
-ALL_PREBUILT += $(TARGET_OUT)/bin/ime
-$(TARGET_OUT)/bin/ime : $(LOCAL_PATH)/ime | $(ACP)
-	$(transform-prebuilt-to-target)
+LOCAL_MODULE := ime_cmd
+LOCAL_MODULE_STEM := ime
+LOCAL_SRC_FILES := ime
+LOCAL_MODULE_CLASS := EXECUTABLES
+include $(BUILD_PREBUILT)
 
+$(ime_installed_module): | $(LOCAL_MODULE)

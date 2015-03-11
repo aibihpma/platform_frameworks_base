@@ -7,9 +7,13 @@ LOCAL_SRC_FILES := $(call all-subdir-java-files)
 LOCAL_MODULE := svc
 include $(BUILD_JAVA_LIBRARY)
 
+svc_installed_module := $(LOCAL_INSTALLED_MODULE)
 
 include $(CLEAR_VARS)
-ALL_PREBUILT += $(TARGET_OUT)/bin/svc
-$(TARGET_OUT)/bin/svc : $(LOCAL_PATH)/svc | $(ACP)
-	$(transform-prebuilt-to-target)
+LOCAL_MODULE := svc_cmd
+LOCAL_MODULE_STEM := svc
+LOCAL_SRC_FILES := svc
+LOCAL_MODULE_CLASS := EXECUTABLES
+include $(BUILD_PREBUILT)
 
+$(svc_installed_module): | $(LOCAL_MODULE)

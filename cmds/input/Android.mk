@@ -7,7 +7,13 @@ LOCAL_SRC_FILES := $(call all-subdir-java-files)
 LOCAL_MODULE := input
 include $(BUILD_JAVA_LIBRARY)
 
+input_installed_module := $(LOCAL_INSTALLED_MODULE)
+
 include $(CLEAR_VARS)
-ALL_PREBUILT += $(TARGET_OUT)/bin/input
-$(TARGET_OUT)/bin/input : $(LOCAL_PATH)/input | $(ACP)
-	$(transform-prebuilt-to-target)
+LOCAL_MODULE := input_cmd
+LOCAL_MODULE_STEM := input
+LOCAL_SRC_FILES := input
+LOCAL_MODULE_CLASS := EXECUTABLES
+include $(BUILD_PREBUILT)
+
+$(input_installed_module): | $(LOCAL_MODULE)
